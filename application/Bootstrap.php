@@ -10,6 +10,7 @@ protected function _initDoctype()
         $view->doctype('XHTML1_STRICT');
     }
    
-    
+   
+
 }
 

@@ -1,15 +1,36 @@
-
-<div id="welcome">
-    <h1>Welcome to the <span id="zf-name">Zend Framework!</span></h1>
-
-    <h3>This is your project's main page</h3>
-
-    <div id="more-information">
-        <p><img src="http://framework.zend.com/images/PoweredBy_ZF_4LightBG.png" /></p>
-        <p>
-            Helpful Links: <br />
-            <a href="http://framework.zend.com/">Zend Framework Website</a> |
-            <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
-        </p>
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php echo $this->layout()->title; ?></title>
+        <?php echo $this->headLink()->appendStylesheet('/css/bootstrap.min.css') ?>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="<?php echo $this->url(
+    array(
+        'controller' => 'Index',
+    ),
+    null,
+        true); ?>">MyFollow</a>
     </div>
-</div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<?php echo $this->url(
+    array(
+        'controller' => 'Index',
+        'action'     => 'login'
+    ),
+    null,
+        true); ?>">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<?php echo $this->layout()->content;  ?>
+<?php echo $this->placeholder('sidebar'); ?>
+</body>
+</html><h2> <?php echo "The User Name is ".$this->id?></h2>

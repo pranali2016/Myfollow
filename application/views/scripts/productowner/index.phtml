@@ -1,7 +1,7 @@
 
 <form class="form-horizontal" action="<?php echo $this->url(
     array(
-        'controller' => 'Admin',
+        'controller' => 'productowner',
         'action'     => 'add'
     ),
     null,
@@ -9,16 +9,17 @@
   <fieldset>
     <legend>Product Owner Registration</legend>
     <div class="form-group">
-      <label for="inputName" class="col-lg-2 control-label">Name</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control"  required="true" id="name" name="name" placeholder="Name">
-      </div>
-    </div>
-    <div class="form-group">
       <label for="inputEmail" class="col-lg-2 control-label">Email</label>
       <div class="col-lg-5">
           <input type="text" class="form-control" required="true" id="email" name="email" placeholder="Email">
       </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Password</label>
+      <div class="col-lg-3">
+          <input type="password" class="form-control" required="true"  id="email" name="password" placeholder="Password">
+      </div>
+      
     </div>
     <div class="form-group">
       <label for="companyname" class="col-lg-2 control-label">Company Name</label>
@@ -26,6 +27,93 @@
           <input type="text" class="form-control" required="true" name="companyName" placeholder="Company Name">
       </div>
     </div>
+      <div class="form-group">
+      <label for="textArea" class="col-lg-2 control-label">Description</label>
+      <div class="col-lg-5">
+        <textarea class="form-control" rows="3" name='description' id="textArea"></textarea>
+        <span class="help-block">Describe your company.</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Date of Joining</label>
+      <div class="col-lg-2">
+          <input type="text" class="form-control" required="true" id="email" name="doj" placeholder="Date of joining">
+      </div>
+        <div class="col-lg-2">
+          Date format (YYYY-mm-dd)
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Founded in</label>
+      <div class="col-lg-2">
+          <input type="text" class="form-control" required="true" id="email" name="foundedIn" placeholder="Founded In">
+      </div>
+      <div class="col-lg-2">
+          Date format (YYYY-mm-dd)
+      </div>
+    </div>
+    
+       <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Street Address</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="street1" placeholder="Street">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Area</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="street2" placeholder="Area">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">City</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="city" placeholder="City">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">State</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true" name="state" placeholder="State">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Country</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true" name="country" placeholder="Country">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Pin Code</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true" name="pin" placeholder="Pin Code">
+      </div>
+    </div><div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Contact No</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="contactNo" placeholder="Contact No">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Website Url</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="websiteUrl" placeholder="Website URL">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Twitter Handler</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="twitterHandler" placeholder="@twitterHandler">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Facebook Page</label>
+      <div class="col-lg-5">
+          <input type="text" class="form-control" required="true"  name="facebookPage" placeholder="Facebook Page URL">
+      </div>
+    </div>
+    
+    
     <div class="form-group">
       <div class="col-lg-5 col-lg-offset-2">
         <button type="reset" class="btn btn-default">Cancel</button>
