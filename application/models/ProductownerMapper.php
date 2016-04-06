@@ -50,8 +50,8 @@ class Application_Model_ProductownerMapper
             $this->getDbTable()->insert($data);
   
     }
-    
-    public function login($email,$password)
+
+        public function login($email,$password)
     {
         echo "<pre>";
    

@@ -1,36 +1,44 @@
-<?php echo $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><?php echo $this->layout()->title; ?></title>
-        <?php echo $this->headLink()->appendStylesheet('/css/bootstrap.min.css') ?>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="<?php echo $this->url(
-    array(
-        'controller' => 'Index',
-    ),
-    null,
-        true); ?>">MyFollow</a>
-    </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="<?php echo $this->url(
+<div class="container">
+<!--<h3><?php echo "The User Name is ".$this->id?></h2>-->
+
+<a href="<?php echo $this->url(
     array(
-        'controller' => 'Index',
-        'action'     => 'login'
+        'controller' => 'dashboard',
+        'action'     => 'products'
     ),
     null,
-        true); ?>">Logout</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<?php echo $this->layout()->content;  ?>
-<?php echo $this->placeholder('sidebar'); ?>
-</body>
-</html><h2> <?php echo "The User Name is ".$this->id?></h2>
+        true); ?>"" class="btn btn-primary pull-right">Add Product Details</a>
+</div>
+    <br><br>
+    <div class="container">
+            <table class="table table-striped table-hover ">
+            <thead>
+              <tr>
+                <th>Sr No</th>
+                <th>Product's Name</th>
+                <th width='400'>Action</th>
+              </tr>
+            </thead>
+            <?php if( count($this->display)): ?>
+            <?php $i=1;?>
+            <?php foreach ($this->display as $value): ?>
+            <tbody>
+              <tr>
+                <td><?= $i; ?></td>
+                <td> <?php echo $value['intro']; ?></td>
+                <td><a href="#" class="btn btn-primary">Update</a> <a href="<?php echo $this->url(array(
+                    'controller' => 'dashboard',
+                    'action'     => 'delete'
+                ),NULL,true
+                        )."?id=".$value['id']; ?>" class="btn btn-danger">Delete</a></td>   
+              </tr>
+              <?php $i++; endforeach;?>
+              <?php else: ?>
+              <tr>
+                  <td colspan="3"> No Record Found </td>
+              </tr>
+              <?php   endif;?>
+            </tbody>
+            </table> 
+</div>

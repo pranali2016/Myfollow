@@ -22,15 +22,7 @@ class ProductownerController extends Zend_Controller_Action
             
             return $this->_helper->redirector('index');
     }
-    
-    public function dashboardAction()
-    {
-         If (Zend_Session::sessionExist('user_session'))
-         {
-             
-         }
-    
-    }
+
 }
             
     

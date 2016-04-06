@@ -23,6 +23,7 @@ class IndexController extends Zend_Controller_Action
                 
                 $email = $this->getRequest()->getPost('email');
                 $password = $this->getRequest()->getPost('password');
+                
                 $mapper  = new Application_Model_ProductownerMapper();
                 $result = $mapper->login($email,$password);
                 $login_id = $result[0]['id'];

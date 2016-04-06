@@ -19,6 +19,7 @@ class Application_Model_Productowner
     protected $_twitterHandler;
     protected $_facebookPage;
     
+    
     public function __construct(array $options = NULL) {
         if(is_array($options))
         {
