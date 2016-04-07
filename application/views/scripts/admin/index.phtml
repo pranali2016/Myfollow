@@ -1,4 +1,11 @@
+<div class="container">
+    <?php if(isset($this->message)) :?>
+    <div class="alert alert-dismissible alert-success">
 
+    <?php echo $this->message ;?>
+
+    </div>    
+ <?php endif;?>
 <form class="form-horizontal" action="<?php echo $this->url(
     array(
         'controller' => 'Admin',
@@ -7,7 +14,7 @@
     null,
         true); ?>" method="post" >
   <fieldset>
-    <legend>Product Owner Registration</legend>
+    <legend>Apply for the Registration</legend>
     <div class="form-group">
       <label for="inputName" class="col-lg-2 control-label">Name</label>
       <div class="col-lg-5">
@@ -34,6 +41,6 @@
     </div>
   </fieldset>
 </form>
-
+</div>
 
   

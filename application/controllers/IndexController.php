@@ -1,5 +1,7 @@
 <?php
 
+use Zend_Session;
+
 class IndexController extends Zend_Controller_Action
 {
 
@@ -33,8 +35,6 @@ class IndexController extends Zend_Controller_Action
                     $session = new Zend_Session_Namespace('user_session');
                     $session->id = $login_id;
                     $this->_redirect('Dashboard');
-                   
-                    echo "password matched" ;
                 }
                 else{
                     echo "Invalid username or password";
@@ -42,6 +42,13 @@ class IndexController extends Zend_Controller_Action
             }
         }
         $this->view->form = $form;
+    }
+    
+    public function logoutAction(){
+     
+        Zend_Session::destroy(); 
+        $this->_helper->redirector('index');
+      
     }
     
     

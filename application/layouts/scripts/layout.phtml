@@ -1,4 +1,4 @@
-<?php echo $this->doctype() ?>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,6 +19,10 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav navbar-right">
+          <?php $this->session = new Zend_Session_Namespace('user_session');
+          //echo $this->session->id;
+          ?>
+        <?php  if(!isset($this->session->id)): ?>  
         <li><a href="<?php echo $this->url(
     array(
         'controller' => 'Index',
@@ -26,11 +30,20 @@
     ),
     null,
         true); ?>">Login</a></li>
-      </ul>
+          <?php else:?>
+          <li><a href="<?php echo $this->url(
+    array(
+        'controller' => 'index',
+        'action'     => 'logout'
+    ),
+    null,
+        true); ?>">Logout</a></li>
+        <?php endif; ?>
+      </ul> 
     </div>
   </div>
 </nav>
 <?php echo $this->layout()->content;  ?>
-<?php echo $this->placeholder('sidebar'); ?>
+
 </body>
 </html>

@@ -53,5 +53,24 @@ class Application_Model_ProductsMapper
     {
         $this->getDbTable()->delete(array('id = ?' => (int) $id));
     }
+    
+     public function update($intro,$detail,$id)
+    {
+     $data = array(
+         'intro'  => $intro,
+         'detail' => $detail,
+     );
+     
+     $this->getDbTable()->update($data,array('id = ?' => $id));
+      
+    }
+    
+    public function find($id)
+    {
+        $select = $this->getDbTable()->select()
+                        ->where('id=?',$id);
+        $result = $select->query()->fetchAll();
+        return $result;
+    }
 }
 

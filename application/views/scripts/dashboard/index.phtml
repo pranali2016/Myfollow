@@ -1,4 +1,11 @@
+<div class="container">
+    <?php if(isset($this->message)) :?>
+    <div class="alert alert-dismissible alert-success">
 
+    <?php echo $this->message ;?>
+
+    </div>    
+ <?php endif;?>
 <div class="container">
 <!--<h3><?php echo "The User Name is ".$this->id?></h2>-->
 
@@ -27,7 +34,10 @@
               <tr>
                 <td><?= $i; ?></td>
                 <td> <?php echo $value['intro']; ?></td>
-                <td><a href="#" class="btn btn-primary">Update</a> <a href="<?php echo $this->url(array(
+                <td><a href="<?php echo $this->url(array(
+                    'controller'     =>  'dashboard',
+                    'action'         =>  'update'
+                ),NULL,TRUE)."?id=".$value['id'] ?>" class="btn btn-primary">Update</a> <a href="<?php echo $this->url(array(
                     'controller' => 'dashboard',
                     'action'     => 'delete'
                 ),NULL,true

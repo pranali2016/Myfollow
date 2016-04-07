@@ -5,6 +5,9 @@ class AdminController extends Zend_Controller_Action
 
     public function init()
     {
+        $messages = $this->_helper->flashMessenger->getMessages();
+        if(!empty($messages))
+        $this->_helper->layout->getView()->message = $messages[0];
         /* Initialize action controller here */
     }
 
@@ -37,16 +40,12 @@ class AdminController extends Zend_Controller_Action
     
     public function addAction()
     {   
-        
-        $name = $this->getRequest()->getPost('name',NULL);
-        $emaill = $this->getRequest()->getPost('companyName',NULL);
-        $email = $this->getRequest()->getPost('email',NULL);
-        $this->view->name = $name;
-        $this->view->email = $email;
-        $this->view->companyName = $emaill;
+       
    $comment = new Application_Model_Admin($this->getAllParams());
             $mapper  = new Application_Model_AdminMapper();
             $mapper->save($comment);
+            $this->_helper->flashMessenger('Request is successfully sent.');
+            $this->_helper->redirector('index');
     }
-   
+    
 }

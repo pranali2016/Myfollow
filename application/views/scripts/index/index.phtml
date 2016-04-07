@@ -1,15 +1,14 @@
 
-<div id="welcome">
-    <h1>Welcome to the <span id="zf-name">Zend Framework!</span></h1>
+<div class="container">
+    <h1 style="font-family:  serif">Welcome to the MyFollow !</h1>
 
-    <h3>This is your project's main page</h3>
-
-    <div id="more-information">
-        <p><img src="http://framework.zend.com/images/PoweredBy_ZF_4LightBG.png" /></p>
-        <p>
-            Helpful Links: <br />
-            <a href="http://framework.zend.com/">Zend Framework Website</a> |
-            <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
-        </p>
+    <h5 style="color: #0b76cc; font-family: cursive">An Application lets you updated with your favourite  products.</h5>
+    <br><br>
+    <div class="well col-lg-6">
+        <p style=""> If you are an organization and wants to promote your products to the world you can get register with us. 
+        for the registration <a href="<?php echo $this->url(array(
+            'controller'  => 'admin'
+            ),NULL,TRUE); ?>" > Click Here. </a> We will provide you the registration link to the requested email id.
+    </p>
     </div>
 </div>

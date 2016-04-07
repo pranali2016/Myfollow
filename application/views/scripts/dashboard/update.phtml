@@ -1,0 +1,29 @@
+
+<?php $all = $this->entry;?>
+<form class="form-horizontal" action="<?php echo $this->url().'?id='.$all[0]['id']; ?>" method="post" >   
+    <fieldset>
+<div class="container">
+    <legend>Update Product Details : </legend>
+    <div class="form-group">
+        <label for="inputEmail" class="col-lg-10">Introduction</label>
+        <div class="col-lg-8">
+            <textarea class="form-control" rows="3" name="intro" ><?= $all[0]['intro'];?></textarea>  
+        </div>
+    </div>
+    <div class="form-group"><div class="row"></div></div>
+    <div class="form-group">
+        <label for="inputEmail" class="col-lg-10">Details</label>
+        <div class="col-lg-8">
+            <textarea class="form-control" rows="5" name="detail" ><?= $all[0]['detail'];?></textarea>  
+        </div>
+     <div class="form-group"><div class="row"> <div class="form-group"><div class="row"></div></div></div></div>
+    <div class="form-group">
+      <div class="col-lg-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  
+</div>
+</div>
+        </fieldset>
+</form>

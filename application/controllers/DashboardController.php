@@ -7,6 +7,9 @@ class DashboardController extends Zend_Controller_Action
 
     public function init()
     {
+        $messages = $this->_helper->flashMessenger->getMessages();
+        if(!empty($messages))
+        $this->_helper->layout->getView()->message = $messages[0];
         /* Initialize action controller here */
     }
 
@@ -44,7 +47,7 @@ class DashboardController extends Zend_Controller_Action
                       $image = array();
                     foreach ($files as $file) 
                     {
-                        $target_file = $file['destination']."\.".$file['name'];
+                        $target_file = $file['destination']."/".$file['name'];
                         array_push($image,$target_file);
                                  
                     }
@@ -56,6 +59,7 @@ class DashboardController extends Zend_Controller_Action
                // echo $intro." ".$comment." ".$id;
                     $mapper = new Application_Model_ProductsMapper();
                     $mapper->add($intro,$comment,$image1,$image2,$image3,$image4,$image5,$id);
+                    $this->_helper->flashMessenger('Product details are successfully added.');
                     return $this->_helper->redirector('index');
              }
          }
@@ -69,8 +73,32 @@ class DashboardController extends Zend_Controller_Action
             $id = $this->getRequest()->getParam('id');
             $mapper = new Application_Model_ProductsMapper();
             $mapper->delete($id);
+            $this->_helper->flashMessenger('Products are successfully deleted.');
             return $this->_helper->redirector('index');
         }
+    }
+    
+    public function updateAction()
+    {
+        $id = $this->getRequest()->getParam('id');
+        $mapper = new Application_Model_ProductsMapper();
+        if($this->getRequest()->isPost())
+        {
+            $id = $this->getRequest()->getParam('id');
+            $intro = $this->getRequest()->getParam('intro');
+            $detail = $this->getRequest()->getParam('detail');
+            $mapper->update($intro,$detail,$id);
+            $this->_helper->flashMessenger('Products are successfully updated.');
+            return $this->_helper->redirector('index');
+        }
+        if($this->getRequest()->isGet())
+        {
+            $result = $mapper->find($id);
+            $this->view->entry = $result;
+            
+        }
+        $this->view->id = $id;
+        
     }
 
 }
