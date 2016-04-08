@@ -8,31 +8,24 @@ class Application_Form_Login extends Zend_Form
         $this->setAttrib('action', 'login');
         
         $this->addElement('text','email',array(
-            'label'          => 'Email', 'class' => array('col-lg-2 control-label'),
+            'label'          => 'Email Id *', 
             'required'       => 'true',
             'filters'        => array('StringTrim'),
             'validators'     => array('EmailAddress'),
-            'class'          => array('form-group')
+            'class'          => array('form-control')
         ));
           
             $this->addElement('password', 'password', array(
-                'label'          => 'Password', 'class' => array('col-lg-2 control-label'),
+                'label'          => 'Password *', 
                      'required'   => true,
                      'validators' => array('Alpha'),
-                'class'          => array('form-group')
+                'class'          => array('form-control')
                  ));
-          $this->addElement('password', 'verifypassword', array(
-              'label'          => 'Confirm Password', 'class' => array('col-lg-2 control-label'),
-                'required'   => true,
-                'validators' => array(
-                    array('identical', true, array('password'))
-                ),
-              'class'          => array('form-group')
-            ));
+          
          $this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Login',
-             'class'    => 'btn btn-primary'
+             'class'    => 'btn btn-primary col-lg-12'
         ));
         
     }

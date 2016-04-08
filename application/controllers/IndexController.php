@@ -25,18 +25,32 @@ class IndexController extends Zend_Controller_Action
                 
                 $email = $this->getRequest()->getPost('email');
                 $password = $this->getRequest()->getPost('password');
-                
+                 Zend_Session::start();
                 $mapper  = new Application_Model_ProductownerMapper();
                 $result = $mapper->login($email,$password);
                 $login_id = $result[0]['id'];
+                
+                $mapp  = new Application_Model_EnduserMapper();
+                $result1 = $mapp->login($email,$password);
+                //print_r($request); 
+                $l_id = $result1[0]['id'];
+                
                 if($login_id)
                 {   
-                    Zend_Session::start();
+                   
                     $session = new Zend_Session_Namespace('user_session');
                     $session->id = $login_id;
                     $this->_redirect('Dashboard');
                 }
-                else{
+                
+                elseif($l_id)
+                    {
+                        $session = new Zend_Session_Namespace('enduser_session');
+                        $session->id = $l_id;
+                        $this->_redirect('Home');
+                    }
+                else
+                {
                     echo "Invalid username or password";
                 }
             }

@@ -2,13 +2,20 @@
 <div class="container">
     <h1 style="font-family:  serif">Welcome to the MyFollow !</h1>
 
-    <h5 style="color: #0b76cc; font-family: cursive">An Application lets you updated with your favourite  products.</h5>
+    <h5 style="color: #0b76cc; font-family: cursive; animation:  cubic-bezier ;">An Application lets you updated with your favourite  products.</h5>
     <br><br>
-    <div class="well col-lg-6">
-        <p style=""> If you are an organization and wants to promote your products to the world you can get register with us. 
-        for the registration <a href="<?php echo $this->url(array(
+    <div class="well col-lg-10">
+        <blockquote> If you are an organization and wants to promote your products to the world you can get register with us. 
+        For the registration <a href="<?php echo $this->url(array(
             'controller'  => 'admin'
-            ),NULL,TRUE); ?>" > Click Here. </a> We will provide you the registration link to the requested email id.
-    </p>
+            ),NULL,TRUE); ?>" class="btn btn-danger btn-xs"> Click Here.</a>  We will provide you the registration link to the requested email id.
+    </blockquote>
     </div>
+   </div>
+<div class="container">
+    <br><br><br>
+    <a href="<?php echo $this->url(array(
+        'controller'  => 'enduser'
+    ),NULL,TRUE);?>" class="btn btn-warning">Users Registration</a>
+    
 </div>

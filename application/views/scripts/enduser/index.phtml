@@ -1,0 +1,22 @@
+<div class="container">
+    <?php if(isset($this->message)) :?>
+    <div class="alert alert-dismissible alert-success">
+
+    <?php echo $this->message ;?>
+
+    </div>    
+ <?php endif;?>
+</div>
+
+<?php
+$this->form->setAction($this->url());
+?>
+<div class="well-sm container">
+    <br/><br>
+    <legend> Registration</legend>
+    <div class="  col-lg-6 ">
+<?php echo $this->form; ?>
+    </div>
+  </div>
+
+    

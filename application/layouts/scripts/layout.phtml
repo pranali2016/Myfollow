@@ -20,9 +20,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav navbar-right">
           <?php $this->session = new Zend_Session_Namespace('user_session');
+          $this->session1 = new Zend_Session_Namespace('enduser_session');
           //echo $this->session->id;
           ?>
-        <?php  if(!isset($this->session->id)): ?>  
+        <?php  if(!isset($this->session->id) && !isset($this->session1->id)): ?>  
         <li><a href="<?php echo $this->url(
     array(
         'controller' => 'Index',
