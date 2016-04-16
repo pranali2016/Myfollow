@@ -55,4 +55,31 @@ class Application_Model_FollowMapper
               return $result;
           }
       }
+      public function checkfollow($uid)
+      {
+          $select = $this->getDbTable()->select()
+                        ->where('userId=?',$uid);
+          $result = $select->query()->fetchAll();
+          if(count($result))
+          {
+              return $result;
+          }
+      }
+      
+      public function displayfollow($uid)
+      {
+          $db = Zend_Db_Table::getDefaultAdapter();
+          $select = $db->select()
+            ->from(['p' => 'products'])
+            ->join(array('f' => 'follow'), 'f.productId = p.id')
+            ->where('f.userId = ?', $uid);
+          $result = $select->query()->fetchAll();
+          return $result;
+      }
+      
+      public function unfollow($pid,$uid)
+      {
+          $this->getDbTable()->delete(array('productId= ?' => $pid, 'userId=?' => $uid));
+      }
 }
+

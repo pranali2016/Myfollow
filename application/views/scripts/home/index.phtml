@@ -1,2 +1,51 @@
+<br><br>
+  
+<div class="container">
+    
+<?php if(isset($this->message)) :?>
+    <div class="alert alert-dismissible alert-success">
 
-<h1>hello </h1>
+    <?php echo $this->message ;?>
+
+    </div>    
+ <?php endif;?>
+    <table class="table table-striped table-hover ">
+            <thead>
+              <tr>
+                <!--<th width="150">Sr No</th>
+                <th>Product</th>-->
+              </tr>
+            </thead>
+            <?php if( count($this->result)): ?>
+            <?php foreach ($this->result as $value): ?>
+            <tbody>
+                <tr>
+                    <!--<td><div class="jumbotron"><h4><?php echo $i; ?></h4></div></td>-->
+                    <td>
+                        <div class="jumbotron" >
+                              <div class="lead"> <h4><?php echo $value['intro']; ?></h4> </div>
+   
+                              <a href="<?= $this->url(array(
+                                  'controller'      => 'home',
+                                  'action'          => 'unfollow'
+                                  ),NULL,TRUE)."?productId=".$value['id']; ?>" class="btn btn-danger  pull-right"  >unfollow</a><br>
+                         <?php if(!empty($value['image1']) || !empty($value['image2']) || !empty($value['image3']) || !empty($value['image4']) || !empty($value['image5'])): ?>
+                     
+                <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image1']); ?>" height="150" width="150" style="margin: 10" />
+                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image2']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in"/>
+                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image3']); ?>" height="150" width="150" style="margin: 10;"/>
+                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image4']); ?>" height="150" width="150" style="margin: 10"/>
+                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image5']); ?>" height="150" width="150" style="margin: 10"/>
+                         <?php endif;?>
+                          <br><br><br><br>
+                <p class="lead"> <?= $value['detail']; ?></p>
+                        </div>
+                    </td>
+                </tr>
+            <?php $i++; endforeach;?>
+                
+            <?php endif;?>
+                
+           </tbody>
+    </table>
+</div>
