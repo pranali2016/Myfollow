@@ -27,6 +27,7 @@ class DashboardController extends Zend_Controller_Action
     
     public function productsAction()
     {
+           
         $request = $this->getRequest();
         $form    = new Application_Form_Products();
         $this->session = new Zend_Session_Namespace('user_session');
@@ -39,15 +40,16 @@ class DashboardController extends Zend_Controller_Action
                     $intro   = $this->getRequest()->getPost('intro');
                     $comment = $this->getRequest()->getPost('comment');
                     $upload = new Zend_File_Transfer_Adapter_Http();
-                    $upload->setDestination('D:\wamp\www\myfollow\application\uploads');
-
+                    $upload->setDestination(PUBLIC_PATH.'\uploads');
                     $files = $upload->getFileInfo();
+                    $upload->setValidators(['Count' => ['min' => 1, 'max' => 5],
+                                            ]);
                     $upload->receive();  
                      echo "<pre>";
                       $image = array();
                     foreach ($files as $file) 
                     {
-                        $target_file = $file['destination']."/".$file['name'];
+                        $target_file = $file['name'];
                         array_push($image,$target_file);
                                  
                     }

@@ -67,5 +67,16 @@ class Application_Model_ProductownerMapper
            return $result;
        }
     }
+    
+    public function get($id)
+    {
+        $select = $this->getDbTable()->select()
+                        ->where('id=?',$id);
+        $result = $select->query()->fetchAll();
+        if(count($result) != 0)
+        {
+            return $result;
+        }
+    }
 }
 

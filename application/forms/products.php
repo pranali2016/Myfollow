@@ -32,9 +32,9 @@ class Application_Form_Products extends Zend_Form
             ->setMultiFile(5)
             ->setMaxFileSize(10240000) // limits the filesize on the client side
             ->setDescription('Click Choose File and click on the image file you would like to upload')
-            ->addValidator('Count', false, 5)                // ensure only 1 file
+            //->addValidator('Count' => array('min' => 1, 'max' => 3))                // ensure 5 files
             ->addValidator('Size', false, 10240000)
-            ->addValidator('Extension', false, 'jpg,jpeg,png,gif');
+            ->addValidator('Extension', false, 'jpg,jpeg,png,gif,mp4');
 
         
    
