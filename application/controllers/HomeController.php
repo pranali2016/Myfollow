@@ -5,21 +5,23 @@ class HomeController extends Zend_Controller_Action
 
     public function init()
     {
-      $messages = $this->_helper->flashMessenger->getMessages();
-      if (!empty($messages)) {
-            $this->_helper->layout->getView()->message = $messages[0];
-        }
+           //set the flash messages
+            $messages = $this->_helper->flashMessenger->getMessages();
+            if (!empty($messages)) {
+                  $this->_helper->layout->getView()->message = $messages[0];
+              }
     }
 
     public function indexAction()
     {
-       $mapper = new Application_Model_FollowMapper();
-        $this->session1 = new Zend_Session_Namespace('enduser_session');
-       $this->view->id = $this->session1->id;
+        $mapper = new Application_Model_FollowMapper();
+        $this->session1 = new Zend_Session_Namespace('enduser_session'); //set the session for the end user
+        $this->view->id = $this->session1->id; //get the id of the current session
         $id = $this->session1->id;
-        $result = $mapper->checkfollow($id);
+        $result = $mapper->checkfollow($id);    //call checkfollow method to check if the user follows the products
         if(empty($result))
         {
+            //if empty, given the link to start following products
             echo "<div class='container'><br><br><h3> Start Following Products <a href='http://myfollow.local/home/products/?id=".$id."'>Click here</a></h3></div>";
         }
         else 
@@ -30,14 +32,14 @@ class HomeController extends Zend_Controller_Action
     
     }
     
-    public function productsAction()
+    public function productsAction()    //an action related to the products
     {
         $this->session1 = new Zend_Session_Namespace('enduser_session');
-       $this->view->id = $this->session1->id;
+        $this->view->id = $this->session1->id;
         $id = $this->session1->id;      //user id
         $mapper = new Application_Model_ProductsMapper();
-        $resultf = $mapper->item($id);
-         $resultall = $mapper->ite();
+        $resultf = $mapper->item($id);      //gives the product which are followed by the current session.
+         $resultall = $mapper->ite();       //gives evry products exists.
          $newfollow = array();
          foreach ($resultf as $key => $value) {
              $newf = array_slice($value,0,2);
@@ -48,7 +50,7 @@ class HomeController extends Zend_Controller_Action
 //         echo "new all products : " ;
 //         print_r($resultall);
 //         
-         function udiffCompare($a, $b)
+         function udiffCompare($a, $b)  // a function for getting the remaining products which are yet not followed by the user.
             {
              return $a['id'] - $b['id'];
             }
@@ -56,18 +58,18 @@ class HomeController extends Zend_Controller_Action
             $arrdiff = array_udiff($resultall, $newfollow, 'udiffCompare');
 //            print_r($arrdiff);
          
-       if(empty($resultf)){
+       if(empty($resultf)){     //if the user is not following any products
            
-        $this->view->result = $resultall;
+        $this->view->result = $resultall;   //display all the products
         //
        }    
        else
        {
-       $this->view->result = $arrdiff;
+       $this->view->result = $arrdiff;      //display products that are unfollowed.
        }
     }
     
-    public function moreAction()
+    public function moreAction()    //to show the more derails about the products.
     {
         $o_id = $this->getRequest()->getParam('ownerid');
         $id = $this->getRequest()->getParam('id');
@@ -76,21 +78,21 @@ class HomeController extends Zend_Controller_Action
         $result = $mapper->itemid($id);
         $this->view->result = $result;
         
-        //$this->view->result = $id;
-       $mapr = new Application_Model_ProductownerMapper();
-       $data = $mapr->get($o_id);
-       $this->view->companydetail = $data;
-      // echo '<pre>';
-      // print_r($result);
-       //break;
+            //$this->view->result = $id;
+           $mapr = new Application_Model_ProductownerMapper();
+           $data = $mapr->get($o_id);
+           $this->view->companydetail = $data;
+          // echo '<pre>';
+          // print_r($result);
+           //break;
         
     }
     
-    public function followAction()
+    public function followAction()  //to follow the products.
     {
        
         
-       $productId = $this->getRequest()->getParam('productId');
+       $productId = $this->getRequest()->getParam('productId'); //get the id of the product.
         
         $this->view->productid = $productId;
         
@@ -101,8 +103,8 @@ class HomeController extends Zend_Controller_Action
         $status = 1;
        $mapper = new Application_Model_FollowMapper();
        $check = $mapper->check($productId,$id);
-       $this->_helper->flashMessenger('You started following product');
-       if(empty($check))
+       $this->_helper->flashMessenger('You started following product');     //set flash message
+       if(empty($check))    //check whether the product olready followed or not.
        {
         $mapper->follow($productId,$id,$status);
        }
@@ -113,14 +115,14 @@ class HomeController extends Zend_Controller_Action
         
     }
     
-    public function unfollowAction()
+    public function unfollowAction()    //to unfollow the products
     {
         $pid = $this->getRequest()->getParam('productId');
-        $this->session1 = new Zend_Session_Namespace('enduser_session');
-       $this->view->id = $this->session1->id;
-        $uid = $this->session1->id;
+        $this->session1 = new Zend_Session_Namespace('enduser_session');    //object of the session
+       $this->view->id = $this->session1->id;       
+        $uid = $this->session1->id;                 //get the session id
         $mapper = new Application_Model_FollowMapper();
-        $mapper->unfollow($pid, $uid);
+        $mapper->unfollow($pid, $uid);              // call unfollow methos to unfollow item
         $this->_helper->flashMessenger("You have unfollow product");
         $this->_helper->redirector('index');
     }

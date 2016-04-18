@@ -6,6 +6,7 @@
         <?php echo $this->headLink()->appendStylesheet('/css/bootstrap.min.css') ?>
     </head>
     <body>
+        <!-- session created for productowner user_session and enduser enduser_session -->
         <?php $this->session = new Zend_Session_Namespace('user_session');
           $this->session1 = new Zend_Session_Namespace('enduser_session');
           //echo $this->session->id;
@@ -13,50 +14,63 @@
         <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-         <?php  if(!isset($this->session1->id)):?>
-      <a class="navbar-brand" href="<?php echo $this->url(
-    array(
-        'controller' => 'Index',
-    ),
-    null,
-        true); ?>">MyFollow</a>
-        <?php else:?>
-        <a class="navbar-brand" href="<?php echo $this->url(
-    array(
-        'controller' => 'home',
-        'action'     => 'index'
-    ),
-    null,
-        true); ?>">Home</a>
-        <ul class="nav navbar-nav"><li ><a class="" href="<?php echo $this->url(
-    array(
-        'controller' => 'home',
-        'action'     => 'products'
-    ),
-    null,
-                true); ?>">Products</a></li></ul>
+         <?php  if(!isset($this->session1->id) && !isset($this->session->id)):?>   <!-- authentication purpose if no session is running. -->
+                <a class="navbar-brand" href="<?php echo $this->url(
+              array(
+                  'controller' => 'Index',
+              ),
+              null,
+                  true); ?>">MyFollow</a>
+         <?php else:?>
+                    <?php  if(isset($this->session1->id)): ?>                      <!-- if enduser session is running -->
+                            <a class="navbar-brand active" href="<?php echo $this->url(
+                            array(
+                                'controller' => 'home',
+                                'action'     => 'index'
+                            ),
+                            null,
+                                true); ?>">Home</a>
+                    <ul class="nav navbar-nav "><li >
+                           <a class="" href="<?php echo $this->url(
+                            array(
+                                'controller' => 'home',
+                                'action'     => 'products'
+                            ),
+                            null,
+                                        true); ?>">Products</a>
+                    </li></ul>
+                    <?php endif; ?>
+                     <?php  if(isset($this->session->id)): ?>                       <!-- if product owner session is running -->
+                            <a class="navbar-brand" href="<?php echo $this->url(
+                            array(
+                                'controller' => 'Dashboard',
+                                'action'     => 'index'
+                            ),
+                            null,
+                                true); ?>">Dashboard</a>
+                    <?php endif;?>
         <?php endif; ?>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-      <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
           
-        <?php  if(!isset($this->session->id) && !isset($this->session1->id)): ?>  
-        <li><a href="<?php echo $this->url(
-    array(
-        'controller' => 'Index',
-        'action'     => 'login'
-    ),
-    null,
-        true); ?>">Login</a></li>
-          <?php else:?>
-          <li><a href="<?php echo $this->url(
-    array(
-        'controller' => 'index',
-        'action'     => 'logout'
-    ),
-    null,
-        true); ?>">Logout</a></li>
+        <?php  if(!isset($this->session->id) && !isset($this->session1->id)): ?>  <!-- if no session is running login will display -->
+                <li><a href="<?php echo $this->url(
+                array(
+                    'controller' => 'Index',
+                    'action'     => 'login'
+                ),
+                null,
+                    true); ?>">Login</a></li>
+        <?php else:?>
+                <li><a href="<?php echo $this->url(
+                array(
+                    'controller' => 'index',
+                    'action'     => 'logout'
+                ),
+                null,
+                    true); ?>">Logout</a></li>
         <?php endif; ?>
       </ul> 
     </div>

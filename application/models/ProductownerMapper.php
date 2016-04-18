@@ -51,24 +51,24 @@ class Application_Model_ProductownerMapper
   
     }
 
-        public function login($email,$password)
-    {
-        echo "<pre>";
-   
-       $select = $this->getDbTable()->select()
-               ->where('email=?',$email)
-                ->where('password=?', $password);
-       
-       $result = $select->query()->fetchAll();
-       
-       
-       if(count($result) != 0)
-       {
-           return $result;
-       }
-    }
+        public function login($email,$password) //login method
+        {
+            echo "<pre>";
+
+           $select = $this->getDbTable()->select()
+                   ->where('email=?',$email)
+                    ->where('password=?', $password);
+
+           $result = $select->query()->fetchAll();
+
+
+           if(count($result) != 0)
+           {
+               return $result;
+           }
+        }
     
-    public function get($id)
+    public function get($id)        //get the details of product owner by the is given
     {
         $select = $this->getDbTable()->select()
                         ->where('id=?',$id);

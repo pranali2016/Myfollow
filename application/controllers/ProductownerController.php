@@ -16,7 +16,7 @@ class ProductownerController extends Zend_Controller_Action
         $this->view->name = $name;
     }
     
-    public function addAction()
+    public function addAction() //add product owner details.
     {
           $comment = new Application_Model_Productowner($this->getAllParams());
           $mapper  = new Application_Model_ProductownerMapper();

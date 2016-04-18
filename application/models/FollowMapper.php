@@ -26,7 +26,7 @@ class Application_Model_FollowMapper
     
     
 
-    public function follow($pid,$uid,$status)
+    public function follow($pid,$uid,$status) //insert the record to the databaase
     {
         
         $data = ['productId'       => $pid,
@@ -43,7 +43,7 @@ class Application_Model_FollowMapper
         
       }
       
-      public function check($pid,$uid)
+      public function check($pid,$uid)      //check whether the product is followed or not
       {
           $select = $this->getDbTable()->select()
                   ->where('productId=?',$pid)
@@ -66,7 +66,7 @@ class Application_Model_FollowMapper
           }
       }
       
-      public function displayfollow($uid)
+      public function displayfollow($uid)   //display all the products which are followed.
       {
           $db = Zend_Db_Table::getDefaultAdapter();
           $select = $db->select()
@@ -77,7 +77,7 @@ class Application_Model_FollowMapper
           return $result;
       }
       
-      public function unfollow($pid,$uid)
+      public function unfollow($pid,$uid)       //delete the products from the follow table
       {
           $this->getDbTable()->delete(array('productId= ?' => $pid, 'userId=?' => $uid));
       }

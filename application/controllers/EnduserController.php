@@ -4,6 +4,7 @@ class EnduserController extends Zend_Controller_Action
 {
     public function init() {
         parent::init();
+        //to set the flash message
         $messages = $this->_helper->flashMessenger->getMessages();
         if(!empty($messages))
         $this->_helper->layout->getView()->message = $messages[0];

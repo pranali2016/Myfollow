@@ -7,6 +7,7 @@ class DashboardController extends Zend_Controller_Action
 
     public function init()
     {
+        //provide the flashdata
         $messages = $this->_helper->flashMessenger->getMessages();
         if(!empty($messages))
         $this->_helper->layout->getView()->message = $messages[0];
@@ -16,16 +17,16 @@ class DashboardController extends Zend_Controller_Action
     public function indexAction()
     {
          $mapper = new Application_Model_ProductsMapper();
-       $this->session = new Zend_Session_Namespace('user_session');
-       $this->view->id = $this->session->id;
-        $id = $this->session->id;
-       $result = $mapper->display($id);
-       $this->view->display = $result;
+            $this->session = new Zend_Session_Namespace('user_session'); //start session for product owner
+            $this->view->id = $this->session->id;
+             $id = $this->session->id;
+            $result = $mapper->display($id);
+            $this->view->display = $result;
     
     
     }
     
-    public function productsAction()
+    public function productsAction()    //to add new products
     {
            
         $request = $this->getRequest();
@@ -40,10 +41,10 @@ class DashboardController extends Zend_Controller_Action
                     $intro   = $this->getRequest()->getPost('intro');
                     $comment = $this->getRequest()->getPost('comment');
                     $upload = new Zend_File_Transfer_Adapter_Http();
-                    $upload->setDestination(PUBLIC_PATH.'\uploads');
+                    $upload->setDestination(PUBLIC_PATH.'\uploads'); //set path where image to store in public folder
                     $files = $upload->getFileInfo();
-                    $upload->setValidators(['Count' => ['min' => 1, 'max' => 5],
-                                            ]);
+                    $upload->setValidators(['Count' => ['min' => 1, 'max' => 5], 
+                                            ]);     //set max and min number fo images to upload
                     $upload->receive();  
                      echo "<pre>";
                       $image = array();
@@ -61,7 +62,7 @@ class DashboardController extends Zend_Controller_Action
                // echo $intro." ".$comment." ".$id;
                     $mapper = new Application_Model_ProductsMapper();
                     $mapper->add($intro,$comment,$image1,$image2,$image3,$image4,$image5,$id);
-                    $this->_helper->flashMessenger('Product details are successfully added.');
+                    $this->_helper->flashMessenger('Product details are successfully added.'); //set flash message
                     return $this->_helper->redirector('index');
              }
          }
@@ -69,22 +70,22 @@ class DashboardController extends Zend_Controller_Action
           
     }
     
-    public function deleteAction(){
+    public function deleteAction(){             //to delete the products
         
         if($this->getRequest()->isGet()){
             $id = $this->getRequest()->getParam('id');
             $mapper = new Application_Model_ProductsMapper();
             $mapper->delete($id);
-            $this->_helper->flashMessenger('Products are successfully deleted.');
+            $this->_helper->flashMessenger('Products are successfully deleted.');   //set flash data
             return $this->_helper->redirector('index');
         }
     }
     
-    public function updateAction()
+    public function updateAction()          // action to update the products
     {
         $id = $this->getRequest()->getParam('id');
         $mapper = new Application_Model_ProductsMapper();
-        if($this->getRequest()->isPost())
+        if($this->getRequest()->isPost())       //to post new updates
         {
             $id = $this->getRequest()->getParam('id');
             $intro = $this->getRequest()->getParam('intro');
@@ -93,7 +94,7 @@ class DashboardController extends Zend_Controller_Action
             $this->_helper->flashMessenger('Products are successfully updated.');
             return $this->_helper->redirector('index');
         }
-        if($this->getRequest()->isGet())
+        if($this->getRequest()->isGet())        //get the values for update action
         {
             $result = $mapper->find($id);
             $this->view->entry = $result;

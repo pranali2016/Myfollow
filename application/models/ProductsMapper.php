@@ -25,7 +25,7 @@ class Application_Model_ProductsMapper
         return $this->_dbTable;
     }
     
-    public function add($intro,$detail,$image1,$image2,$image3,$image4,$image5,$id)
+    public function add($intro,$detail,$image1,$image2,$image3,$image4,$image5,$id)     //insert product details
     {
         //echo $intro." ".$detail." ".$id;
       $data = array( 'intro' => $intro,
@@ -41,7 +41,7 @@ class Application_Model_ProductsMapper
        
     }
     
-    public function display($id)
+    public function display($id)    //fetch all the products added by the owner with id = $id
     {
         $select = $this->getDbTable()->select()
                         ->where('ownerId=?',$id);
@@ -49,12 +49,12 @@ class Application_Model_ProductsMapper
         return $result;
     }
     
-    public function delete($id)
+    public function delete($id)     // delete the products
     {
         $this->getDbTable()->delete(array('id = ?' => (int) $id));
     }
     
-     public function update($intro,$detail,$id)
+     public function update($intro,$detail,$id)     //update the products
     {
      $data = array(
          'intro'  => $intro,
@@ -65,7 +65,7 @@ class Application_Model_ProductsMapper
       
     }
     
-    public function find($id)
+    public function find($id)       // find the products.
     {
         $select = $this->getDbTable()->select()
                         ->where('id=?',$id);
@@ -74,7 +74,7 @@ class Application_Model_ProductsMapper
     }
     
     
-    public function item($id)
+    public function item($id)       //join query for follow and products to get the which user follow wich items
     { 
         $db = Zend_Db_Table::getDefaultAdapter();
         //print_r($db);
@@ -97,7 +97,7 @@ $query = $select->query()->fetchAll();
     return $query;
     }
     
-    public function ite()
+    public function ite()       //get all the products 
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $select = $db->select()
@@ -107,7 +107,7 @@ $query = $select->query()->fetchAll();
     return $result;
     }
 
-        public function itemid($id)
+    public function itemid($id)     //get product by product id.
     { 
     $select = $this->getDbTable()->select()
             ->where('id=?',$id);

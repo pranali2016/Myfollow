@@ -43,9 +43,22 @@ class AdminController extends Zend_Controller_Action
        
    $comment = new Application_Model_Admin($this->getAllParams());
             $mapper  = new Application_Model_AdminMapper();
-            $mapper->save($comment);
-            $this->_helper->flashMessenger('Request is successfully sent.');
-            $this->_helper->redirector('index');
+            //$mapper->save($comment);
+            $email = $this->getRequest()->getParam('email');
+            
+            $to       = $email;
+            $subject  = 'Registration link';
+            $message  = 'Hi, you just received an email using sendmail!';
+            $headers  = 'From: pranalivj9@gmail.com' . "\r\n" .
+                        'MIME-Version: 1.0' . "\r\n" .
+                        'Content-type: text/html; charset=utf-8';
+            if(mail($to, $subject, $message, $headers))
+            {  echo "Email sent";}
+            else
+            {  echo "Email sending failed";  }          
+            
+//            $this->_helper->flashMessenger('Request is successfully sent.');
+//            $this->_helper->redirector('index');
     }
     
 }
