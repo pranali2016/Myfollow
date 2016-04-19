@@ -51,8 +51,8 @@ class AdminController extends Zend_Controller_Action
             $email = $this->getRequest()->getParam('email');
             $name = $this->getRequest()->getParam('name');
             $config = array('auth' => 'login',
-                'username' => 'pranalivj9@gmail.com',
-                'password' => 'Pranali94',
+                'username' => '',
+                'password' => '',
                 'ssl' => 'tls',
             'port' => 587); // Optional port number supplied
  
@@ -60,7 +60,7 @@ class AdminController extends Zend_Controller_Action
         
         $mail = new Mail\Message();
         $mail->setBody('This is the text of the email.');
-        $mail->setFrom('pranalivj9@gmail.com', 'Sender\'s name');
+        $mail->setFrom('', 'Sender\'s name');
         $mail->addTo($email, $name);
         $mail->setSubject('TestSubject');
 
