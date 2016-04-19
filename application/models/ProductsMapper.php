@@ -115,5 +115,29 @@ $query = $select->query()->fetchAll();
     
     return $result;
     }
+    
+    public function linkedinitem($id)       //join query for follow and products to get the which user follow wich items
+    { 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        //print_r($db);
+        echo "<pre>";
+        $select = $db->select()
+            ->from(['p' => 'products'], ['id','intro'])
+            ->join(array('f' => 'follow'), 'f.productId = p.id')
+            ->where('f.userId = ?', $id)
+            ->where('f.state=?',1);
+
+$query = $select->query()->fetchAll();
+//       print_r($query);
+//    exit; 
+//    $select = "SELECT * 
+//            FROM products
+//            JOIN follow ON products.id != follow.productId
+//            WHERE follow.userId =1";
+//    
+    
+    return $query;
+    }
+    
 }
 

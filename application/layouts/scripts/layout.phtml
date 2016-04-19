@@ -14,7 +14,7 @@
         <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-         <?php  if(!isset($this->session1->id) && !isset($this->session->id)):?>   <!-- authentication purpose if no session is running. -->
+         <?php  if(!isset($this->session1->id) && !isset($this->session->id) && !isset($_SESSION["loggedin_user_id"])):?>   <!-- authentication purpose if no session is running. -->
                 <a class="navbar-brand" href="<?php echo $this->url(
               array(
                   'controller' => 'Index',
@@ -22,7 +22,7 @@
               null,
                   true); ?>">MyFollow</a>
          <?php else:?>
-                    <?php  if(isset($this->session1->id)): ?>                      <!-- if enduser session is running -->
+                    <?php  if(isset($this->session1->id) ): ?>                      <!-- if enduser session is running -->
                             <a class="navbar-brand active" href="<?php echo $this->url(
                             array(
                                 'controller' => 'home',
@@ -40,6 +40,26 @@
                                         true); ?>">Products</a>
                     </li></ul>
                     <?php endif; ?>
+                    
+                    <?php  if(isset($_SESSION["loggedin_user_id"])): ?>                      <!-- if enduser session is running -->
+                            <a class="navbar-brand active" href="<?php echo $this->url(
+                            array(
+                                'controller' => 'home',
+                                'action'     => 'linkedin'
+                            ),
+                            null,
+                                true); ?>">Home</a>
+                    <ul class="nav navbar-nav "><li >
+                           <a class="" href="<?php echo $this->url(
+                            array(
+                                'controller' => 'home',
+                                'action'     => 'linkedinproducts'
+                            ),
+                            null,
+                                        true); ?>">Products</a>
+                    </li></ul>
+                    <?php endif; ?>
+                    
                      <?php  if(isset($this->session->id)): ?>                       <!-- if product owner session is running -->
                             <a class="navbar-brand" href="<?php echo $this->url(
                             array(
@@ -55,7 +75,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
     <ul class="nav navbar-nav navbar-right">
           
-        <?php  if(!isset($this->session->id) && !isset($this->session1->id)): ?>  <!-- if no session is running login will display -->
+        <?php  if(!isset($this->session->id) && !isset($this->session1->id) && !isset($_SESSION["loggedin_user_id"])): ?>  <!-- if no session is running login will display -->
                 <li><a href="<?php echo $this->url(
                 array(
                     'controller' => 'Index',

@@ -1,5 +1,8 @@
 <?php
 
+use Zend_Mail_Transport_Smtp;
+use Zend\Mail;
+
 class AdminController extends Zend_Controller_Action
 {
 
@@ -40,23 +43,40 @@ class AdminController extends Zend_Controller_Action
     
     public function addAction()
     {   
-       
-   $comment = new Application_Model_Admin($this->getAllParams());
-            $mapper  = new Application_Model_AdminMapper();
+        require_once 'Zend/Mail.php';
+        //require_once 'Zend/Mail/Transport/Smtp.php';
+//   $comment = new Application_Model_Admin($this->getAllParams());
+//            $mapper  = new Application_Model_AdminMapper();
             //$mapper->save($comment);
             $email = $this->getRequest()->getParam('email');
-            
-            $to       = $email;
-            $subject  = 'Registration link';
-            $message  = 'Hi, you just received an email using sendmail!';
-            $headers  = 'From: pranalivj9@gmail.com' . "\r\n" .
-                        'MIME-Version: 1.0' . "\r\n" .
-                        'Content-type: text/html; charset=utf-8';
-            if(mail($to, $subject, $message, $headers))
-            {  echo "Email sent";}
-            else
-            {  echo "Email sending failed";  }          
-            
+            $name = $this->getRequest()->getParam('name');
+            $config = array('auth' => 'login',
+                'username' => 'pranalivj9@gmail.com',
+                'password' => 'Pranali94',
+                'ssl' => 'tls',
+            'port' => 587); // Optional port number supplied
+ 
+        $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+        
+        $mail = new Mail\Message();
+        $mail->setBody('This is the text of the email.');
+        $mail->setFrom('pranalivj9@gmail.com', 'Sender\'s name');
+        $mail->addTo($email, $name);
+        $mail->setSubject('TestSubject');
+
+$transport = new Mail\Transport\Sendmail();
+$transport->send($mail);
+        
+//        echo "<pre>";
+//        print_r($transport);
+//        $mail = new Zend_Mail();
+//        $mail->setBodyText('This is the text of the mail.');
+//        $mail->setFrom('pranalivj9@gmail.com', 'Pranali');
+//        $mail->addTo($email, $name);
+//        $mail->setSubject('TestSubject');
+//       $mail->send($transport);
+//       print_r($mail);exit;
+// 
 //            $this->_helper->flashMessenger('Request is successfully sent.');
 //            $this->_helper->redirector('index');
     }
