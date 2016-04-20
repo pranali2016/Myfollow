@@ -60,8 +60,13 @@ class DashboardController extends Zend_Controller_Action
                     $image4 = $image[3];
                     $image5 = $image[4];
                // echo $intro." ".$comment." ".$id;
+                    
                     $mapper = new Application_Model_ProductsMapper();
-                    $mapper->add($intro,$comment,$image1,$image2,$image3,$image4,$image5,$id);
+                    $pid = $mapper->add($intro,$comment,$image1,$image2,$image3,$image4,$image5,$id);
+                    foreach ($image as  $value) {
+                        $mapper->images($pid,$value);
+                    }
+                    
                     $this->_helper->flashMessenger('Product details are successfully added.'); //set flash message
                     return $this->_helper->redirector('index');
              }
@@ -90,6 +95,8 @@ class DashboardController extends Zend_Controller_Action
             $id = $this->getRequest()->getParam('id');
             $intro = $this->getRequest()->getParam('intro');
             $detail = $this->getRequest()->getParam('detail');
+            
+            
             $mapper->update($intro,$detail,$id);
             $this->_helper->flashMessenger('Products are successfully updated.');
             return $this->_helper->redirector('index');

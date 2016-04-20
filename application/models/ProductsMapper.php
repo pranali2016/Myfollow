@@ -37,7 +37,8 @@ class Application_Model_ProductsMapper
                     'image5' => $image5,
                     'ownerId'=> $id          
           );
-    $this->getDbTable()->insert($data);
+          $pid = $this->getDbTable()->insert($data);
+          return $pid;
        
     }
     
@@ -137,6 +138,16 @@ $query = $select->query()->fetchAll();
 //    
     
     return $query;
+    }
+    
+    public function images($pid,$images)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $data = [
+          'productId'   => $pid,
+           'image'      => $images,
+        ];
+        $db->insert('images',$data);
     }
     
 }

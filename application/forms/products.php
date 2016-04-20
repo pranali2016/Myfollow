@@ -20,6 +20,7 @@ class Application_Form_Products extends Zend_Form
             'rows'       => '5',
             'label'      => 'Brief about your product ',
             'required'   => 'true',
+            'filters'    => array('HtmlEntities','StringTrim'),
             'validators' => array(
                             array('validator' => 'StringLength')// 'options' => array(0, 10))
                                   ),

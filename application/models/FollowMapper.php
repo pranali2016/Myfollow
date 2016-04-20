@@ -72,6 +72,7 @@ class Application_Model_FollowMapper
           $select = $db->select()
             ->from(['p' => 'products'])
             ->join(array('f' => 'follow'), 'f.productId = p.id')
+            ->order('p.updated_at DESC')
             ->where('f.userId = ?', $uid);
           $result = $select->query()->fetchAll();
           return $result;
