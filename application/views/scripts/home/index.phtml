@@ -29,14 +29,18 @@
                                   'controller'      => 'home',
                                   'action'          => 'unfollow'
                                   ),NULL,TRUE)."?productId=".$value['id']; ?>" class="btn btn-danger  pull-right"  >unfollow</a><br>
-                         <?php if(!empty($value['image1']) || !empty($value['image2']) || !empty($value['image3']) || !empty($value['image4']) || !empty($value['image5'])): ?>
-                     
-                <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image1']); ?>" height="150" width="150" style="margin: 10" />
-                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image2']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in"/>
-                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image3']); ?>" height="150" width="150" style="margin: 10;"/>
-                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image4']); ?>" height="150" width="150" style="margin: 10"/>
-                          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$value['image5']); ?>" height="150" width="150" style="margin: 10"/>
-                         <?php endif;?>
+                                  
+                        <?php $image = $this->images;
+                            echo $image['productId'];
+                        ?>
+                                 
+                <?php foreach ($this->images as $imagee): ?>
+                    <?php if($value['id'] == $imagee['productId'] ):  ?>
+                     <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$imagee['image']); ?>" height="150" width="150" style="margin: 10" />
+                 <?php endif;?>
+                
+                 <?php $i++; endforeach;?>
+     
                           <br><br><br><br>
                 <p class="lead"> <?= $value['detail']; ?></p>
                         </div>

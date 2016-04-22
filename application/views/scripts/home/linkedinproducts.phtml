@@ -88,7 +88,7 @@
                     <!--<td><div class="jumbotron"><h4><?php echo $i; ?></h4></div></td>-->
                     <td>
                         <div class="jumbotron" >
-                              <div class="lead"> <h4><?php echo $value['intro']; ?></h4> </div>
+                              <div class="lead"> <h4><?php echo nl2br($value['intro']); ?></h4> </div>
    
                               <a href="<?= $this->url(array(
                                   'controller'      => 'home',
