@@ -9,13 +9,21 @@
 <div class="container">
 <!--<h3><?php echo "The User Name is ".$this->id?></h2>-->
 
+    <a href="<?php echo $this->url(
+    array(
+        'controller' => 'dashboard',
+        'action'     => 'details'
+    ),
+    null,
+        true); ?>" class="btn btn-primary pull-right">Add Product Details</a>
+ <!--   
 <a href="<?php echo $this->url(
     array(
         'controller' => 'dashboard',
         'action'     => 'products'
     ),
     null,
-        true); ?>"" class="btn btn-primary pull-right">Add Product Details</a>
+        true); ?>" class="btn btn-primary pull-right">Add Product Details</a>-->
 </div>
     <br><br>
     <div class="container">

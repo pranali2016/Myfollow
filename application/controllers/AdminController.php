@@ -55,7 +55,7 @@ class AdminController extends Zend_Controller_Action
                 ->setBodyHtml('<a href = "http://myfollow.local/productowner">Registration link</a>')
                 ->setFrom('pranali@promactinfo.com', 'Pranali Jadhav')
                 ->addTo($email,$name)
-                ->setSubject('My Certificate')
+                ->setSubject('Registration Link')
                 ->send($transport);
             
         } catch (Exception $ex) {

@@ -60,29 +60,4 @@ class Application_Model_EnduserMapper
            return $result;
        }
     }
-
-//    public function follow($pid,$uid,$status)
-//    {
-//        $db = Zend_Db::factory('mysqli', array(
-//                'host'             => 'localhost',
-//                'username'         => 'root',
-//                'password'         => '',
-//                'dbname'           => 'myfollow',
-//            ));
-//
-//        $data = ['productId'       => $pid,
-//          'userId'          => $uid,
-//          'status'          => $status,
-//          
-//          ];
-//        echo $pid." ".$uid." ".$status." <pre>";
-//        $tableName = $db->quoteIdentifier("follow");
-//        print_r($tableName);
-//        exit;
-//         $db->insert($tableName, $data); 
-////        echo '<pre>';
-////        print_r($db);
-////        exit;
-//        
-//      }
 }

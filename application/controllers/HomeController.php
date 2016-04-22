@@ -12,21 +12,27 @@ class HomeController extends Zend_Controller_Action
               }
     }
 
-    public function indexAction()
+    public function indexAction() //endusers wirthout oauth
     {
         $mapper = new Application_Model_FollowMapper();
         $this->session1 = new Zend_Session_Namespace('enduser_session'); //set the session for the end user
         $this->view->id = $this->session1->id; //get the id of the current session
-        $id = $this->session1->id;
+        $id = $this->session1->id;      //userId
+        
         $result = $mapper->checkfollow($id);    //call checkfollow method to check if the user follows the products
-        if(empty($result))
+        if(empty($result)) 
         {
             //if empty, given the link to start following products
             echo "<div class='container'><br><br><h3> Start Following Products <a href='http://myfollow.local/home/products/?id=".$id."'>Click here</a></h3></div>";
         }
         else 
         {
-            $display = $mapper->displayfollow($id);
+           $display = $mapper->displayfollow($id);     //display the list of the products followed by userid = $id.
+            $images = $mapper->imagefollow($id);        //display the list of the images followed by userid = $id.
+            echo "<pre>";
+//            print_r($images);
+//            exit;
+            $this->view->images = $images;
             $this->view->result = $display;
         }
     
@@ -37,26 +43,23 @@ class HomeController extends Zend_Controller_Action
         $this->session1 = new Zend_Session_Namespace('enduser_session');
         $this->view->id = $this->session1->id;
         $id = $this->session1->id;      //user id
+        
         $mapper = new Application_Model_ProductsMapper();
         $resultf = $mapper->item($id);      //gives the product which are followed by the current session.
          $resultall = $mapper->ite();       //gives evry products exists.
          $newfollow = array();
-         foreach ($resultf as $key => $value) {
+         
+         foreach ($resultf as $key => $value) { //covert 2d array into 1d
              $newf = array_slice($value,0,2);
-             array_push($newfollow, $newf);
+             array_push($newfollow, $newf);     //push the values to the newfollow array
          }
-//         echo "new Follow : " ;
-//         print_r($newfollow);
-//         echo "new all products : " ;
-//         print_r($resultall);
-//         
-         function udiffCompare($a, $b)  // a function for getting the remaining products which are yet not followed by the user.
+
+            function udiffCompare($a, $b)  // a function for getting the remaining products which are yet not followed by the user.
             {
              return $a['id'] - $b['id'];
             }
 
             $arrdiff = array_udiff($resultall, $newfollow, 'udiffCompare');
-//            print_r($arrdiff);
          
        if(empty($resultf)){     //if the user is not following any products
            
@@ -69,6 +72,7 @@ class HomeController extends Zend_Controller_Action
        }
     }
     
+   /* Not usable in current flow..........
     public function moreAction()    //to show the more derails about the products.
     {
         $o_id = $this->getRequest()->getParam('ownerid');
@@ -78,31 +82,23 @@ class HomeController extends Zend_Controller_Action
         $result = $mapper->itemid($id);
         $this->view->result = $result;
         
-            //$this->view->result = $id;
            $mapr = new Application_Model_ProductownerMapper();
            $data = $mapr->get($o_id);
            $this->view->companydetail = $data;
-          // echo '<pre>';
-          // print_r($result);
-           //break;
-        
-    }
+    }*/
     
     public function followAction()  //to follow the products.
-    {
-       
-        
+    {       
        $productId = $this->getRequest()->getParam('productId'); //get the id of the product.
+       $this->view->productid = $productId;
         
-        $this->view->productid = $productId;
-        
-       $this->session1 = new Zend_Session_Namespace('enduser_session');
-       $this->view->id = $this->session1->id;
+        $this->session1 = new Zend_Session_Namespace('enduser_session');
+        $this->view->id = $this->session1->id;
         $id = $this->session1->id;
-        //echo $id;
-        $status = 1;
+       
+       $status = 1; //1 means following
        $mapper = new Application_Model_FollowMapper();
-       $check = $mapper->check($productId,$id);
+       $check = $mapper->check($productId,$id); //call check method to check  if user follows any product
        $this->_helper->flashMessenger('You started following product');     //set flash message
        if(empty($check))    //check whether the product olready followed or not.
        {
@@ -127,77 +123,70 @@ class HomeController extends Zend_Controller_Action
         $this->_helper->redirector('index');
     }
     
-   public function linkedinAction()
+   public function linkedinAction() //enduser with oauth with linkedin
    {
        if(isset($_SESSION["loggedin_user_id"]) && !empty($_SESSION["user"])) 
         {
-	$user = $_SESSION["user"];
-//        echo $user->formattedName;
-//        echo $user->emailAddress;
-//        echo $user->location->name;
-        $id = $user->id;
-        $mapper = new Application_Model_FollowMapper();
-        $result = $mapper->checkfollow($id);    //call checkfollow method to check if the user follows the products
-        if(empty($result))
-        {
-            //if empty, given the link to start following products
-            echo "<div class='container'><br><br><h3> Start Following Products <a href='http://myfollow.local/home/linkedinproducts'>Click here</a></h3></div>";
-        }
-        else 
-        {
-            $display = $mapper->displayfollow($id);
-            $this->view->result = $display;
-        }
+            $user = $_SESSION["user"];      //get the user with oauth by linked in
+            $id = $user->id;
+            $mapper = new Application_Model_FollowMapper();
+            $result = $mapper->checkfollow($id);    //call checkfollow method to check if the user follows the products
+            if(empty($result))
+            {
+                //if empty, given the link to start following products
+                echo "<div class='container'><br><br><h3> Start Following Products <a href='http://myfollow.local/home/linkedinproducts'>Click here</a></h3></div>";
+            }
+            else 
+            {
+                $images = $mapper->imagefollow($id);    //get the images for the product followed by userid = $id
+                $this->view->images = $images;
+                $display = $mapper->displayfollow($id);     //get the products info followed by userid = $id
+                $this->view->result = $display;
+            }
         
         }
-        else{
-		
-	if(isset($_SESSION["err_msg"]) && $_SESSION["err_msg"] <> ""){
-		echo $_SESSION["err_msg"];
-	}
-   }
+        else    //show authentication error
+	{	
+            if(isset($_SESSION["err_msg"]) && $_SESSION["err_msg"] <> ""){
+                    echo $_SESSION["err_msg"];
+            }
+        }
    }
    
-   public function linkedinproductsAction()    //an action related to the products
+   public function linkedinproductsAction()   //an action related to the products for linkedin autorised user
     {
         $user = $_SESSION["user"];
         $id = $user->id;      //user id
-       // echo $id; 
+       
         $mapper = new Application_Model_ProductsMapper();
         $resultf = $mapper->linkedinitem($id);      //gives the product which are followed by the current session.
          $resultall = $mapper->ite();       //gives evry products exists.
          $newfollow = array();
-         
-//         print_r($resultf);
+ 
          foreach ($resultf as $key => $value) {
              $newf = array_slice($value,0,2);
              array_push($newfollow, $newf);
          }
-         //echo "new Follow : " ;
-         //print_r($newfollow);
-         //echo "new all products : " ;
-         //print_r($resultall);
-         
-         function udiffCompare($a, $b)  // a function for getting the remaining products which are yet not followed by the user.
+       
+         function Compare($a, $b)  // a function for getting the remaining products which are yet not followed by the user.
             {
              return $a['id'] - $b['id'];
             }
 
-            $arrdiff = array_udiff($resultall, $newfollow, 'udiffCompare');
-         //   print_r($arrdiff);
+        $arrdiff = array_udiff($resultall, $newfollow, 'Compare');
          
-     if(empty($resultf)){     //if the user is not following any products
-          
-        $this->view->result = $resultall;   //display all the products
-
-       }    
+        if(empty($resultf)){     //if the user is not following any product
+            $this->view->result = $resultall;   //display all the products
+         }  
+         
        else
        {
        $this->view->result = $arrdiff;      //display products that are unfollowed.
        }
+       
      }
     
-       public function linkedinfollowAction()  //to follow the products.
+       public function linkedinfollowAction()  //to follow the products for linkein autorised user.
         {
 
 
@@ -207,7 +196,7 @@ class HomeController extends Zend_Controller_Action
 
            $user = $_SESSION["user"];
             $id = $user->id; 
-            //echo $id;
+            
             $status = 1;
            $mapper = new Application_Model_FollowMapper();
            $check = $mapper->check($productId,$id);
@@ -223,7 +212,7 @@ class HomeController extends Zend_Controller_Action
 
         }
         
-        public function linkedinunfollowAction()    //to unfollow the products
+        public function linkedinunfollowAction()    //to unfollow the products for linkedin authorised user
         {
             $pid = $this->getRequest()->getParam('productId');
             $user = $_SESSION["user"];

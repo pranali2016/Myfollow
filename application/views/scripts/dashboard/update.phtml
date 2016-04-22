@@ -1,15 +1,26 @@
-
 <?php $all = $this->entry;?>
+
 <form class="form-horizontal" action="<?php echo $this->url().'?id='.$all[0]['id']; ?>" method="post" >   
     <fieldset>
 <div class="container">
+    
+    <?php foreach ($this->image as $imagee): ?>
+                            
+          <a href="<?php echo $this->baseurl('/uploads/'.$imagee['image']); ?>" ><img alt="image" src="<?php echo $this->baseurl('/uploads/'.$imagee['image']); ?>" height="150" width="150" style="margin: 10; cursor:zoom-in  " /></a>
+                           
+    <?php $i++; endforeach;?>
+    
     <legend>Update Product Details : </legend>
+    
+    
     <div class="form-group">
         <label for="inputEmail" class="col-lg-10">Introduction</label>
         <div class="col-lg-10">
             <textarea class="form-control" rows="3" name="intro" ><?= $all[0]['intro'];?></textarea>  
         </div>
     </div>
+    
+    
     <div class="form-group"><div class="row"></div></div>
     <div class="form-group">
         <label for="inputEmail" class="col-lg-10">Details</label>
@@ -17,18 +28,13 @@
             <textarea class="form-control" rows="5" name="detail" ><?= $all[0]['detail'];?></textarea>  
         </div>
     </div>
-    <br> <div class="form-group">
-                <?php if(!empty($all[0]['image1']) || !empty($all[0]['image2']) || !empty($all[0]['image3']) || !empty($all[0]['image4']) || !empty($all[0]['image5'])): ?>
-                <label for="inputEmail" class="col-lg-10">Media</label> <br><br>
-                <a href="<?php echo "http://myfollow.local/uploads/".$all[0]['image1'];?>"><img alt="image" src="<?php echo $this->baseurl('/uploads/'.$all[0]['image1']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in" /></a>
-                <a href="<?php echo "http://myfollow.local/uploads/".$all[0]['image2'];?>"><img alt="image" src="<?php echo $this->baseurl('/uploads/'.$all[0]['image2']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in"/></a>
-                <a href="<?php echo "http://myfollow.local/uploads/".$all[0]['image3'];?>">          <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$all[0]['image3']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in"/></a>
-                <a href="<?php echo "http://myfollow.local/uploads/".$all[0]['image4'];?>">         <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$all[0]['image4']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in"/></a>
-                <a href="<?php echo "http://myfollow.local/uploads/".$all[0]['image5'];?>">         <img alt="image" src="<?php echo $this->baseurl('/uploads/'.$all[0]['image5']); ?>" height="150" width="150" style="margin: 10;cursor: zoom-in"/></a>
-                <?php endif;?>
-    </div>
+    <br> 
     
-     <div class="form-group"><div class="row"> <div class="form-group"><div class="row"></div></div></div></div>
+    
+    
+    <div class="form-group"><div class="row"> <div class="form-group"><div class="row"></div></div></div></div>
+    
+    
     <div class="form-group">
       <div class="col-lg-10">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -36,6 +42,5 @@
     </div>
   
 </div>
-</div>
-        </fieldset>
+</fieldset>
 </form>

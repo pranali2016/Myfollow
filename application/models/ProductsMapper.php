@@ -3,7 +3,7 @@
 class Application_Model_ProductsMapper
 {
     
-     protected $_dbTable;
+     protected $_dbTable;                               
     
     public function setDbTable($dbTable)
     {
@@ -20,21 +20,16 @@ class Application_Model_ProductsMapper
     public function getDbTable()
     {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Application_Model_DbTable_Products');
+            $this->setDbTable('Application_Model_DbTable_Products'); //get the table products.
         }
         return $this->_dbTable;
     }
     
-    public function add($intro,$detail,$image1,$image2,$image3,$image4,$image5,$id)     //insert product details
+    public function add($intro,$detail,$id)  //insert product details
     {
-        //echo $intro." ".$detail." ".$id;
+       
       $data = array( 'intro' => $intro,
 		    'detail' => $detail,
-		    'image1' => $image1,
-		    'image2' => $image2,
-		    'image3' => $image3,
-                    'image4' => $image4,
-                    'image5' => $image5,
                     'ownerId'=> $id          
           );
           $pid = $this->getDbTable()->insert($data);
@@ -42,20 +37,21 @@ class Application_Model_ProductsMapper
        
     }
     
-    public function display($id)    //fetch all the products added by the owner with id = $id
+    public function display($id)  //fetch all the products added by the owner with id = $id
     {
         $select = $this->getDbTable()->select()
+                        ->order('updated_at DESC')
                         ->where('ownerId=?',$id);
         $result = $select->query()->fetchAll();
         return $result;
     }
     
-    public function delete($id)     // delete the products
+    public function delete($id) // delete the products
     {
         $this->getDbTable()->delete(array('id = ?' => (int) $id));
     }
     
-     public function update($intro,$detail,$id)     //update the products
+     public function update($intro,$detail,$id)  //update the products
     {
      $data = array(
          'intro'  => $intro,
@@ -66,7 +62,7 @@ class Application_Model_ProductsMapper
       
     }
     
-    public function find($id)       // find the products.
+    public function find($id)  // find the products for update action.
     {
         $select = $this->getDbTable()->select()
                         ->where('id=?',$id);
@@ -74,11 +70,18 @@ class Application_Model_ProductsMapper
         return $result;
     }
     
+    public function image($pid)     //update action
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $select = $db->select()
+                    ->from('images')
+                    ->where('productId = ?',$pid);
+        return $select->query()->fetchAll();
+    }
     
-    public function item($id)       //join query for follow and products to get the which user follow wich items
+    public function item($id)  //join query for follow and products to get the which user follow wich items
     { 
         $db = Zend_Db_Table::getDefaultAdapter();
-        //print_r($db);
         echo "<pre>";
         $select = $db->select()
             ->from(['p' => 'products'], ['id','intro'])
@@ -86,29 +89,23 @@ class Application_Model_ProductsMapper
             ->where('f.userId = ?', $id)
             ->where('f.state=?',1);
 
-$query = $select->query()->fetchAll();
-//       print_r($query);
-//    exit; 
-//    $select = "SELECT * 
-//            FROM products
-//            JOIN follow ON products.id != follow.productId
-//            WHERE follow.userId =1";
-//    
-    
-    return $query;
+        $query = $select->query()->fetchAll();
+
+        return $query;
     }
     
-    public function ite()       //get all the products 
+    public function ite() //get all the products as result 
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $select = $db->select()
+                    ->order('updated_at desc')
                     ->from('products',['id','intro']);
                 $result = $select->query()->fetchAll();        
     
     return $result;
     }
 
-    public function itemid($id)     //get product by product id.
+    public function itemid($id)  //get product by product id.
     { 
     $select = $this->getDbTable()->select()
             ->where('id=?',$id);
@@ -117,30 +114,23 @@ $query = $select->query()->fetchAll();
     return $result;
     }
     
-    public function linkedinitem($id)       //join query for follow and products to get the which user follow wich items
+    public function linkedinitem($id)  //join query for follow and products to get the which user follow which items for oauth users
     { 
         $db = Zend_Db_Table::getDefaultAdapter();
-        //print_r($db);
         echo "<pre>";
         $select = $db->select()
             ->from(['p' => 'products'], ['id','intro'])
             ->join(array('f' => 'follow'), 'f.productId = p.id')
             ->where('f.userId = ?', $id)
+            ->order('p.updated_at desc')
             ->where('f.state=?',1);
 
-$query = $select->query()->fetchAll();
-//       print_r($query);
-//    exit; 
-//    $select = "SELECT * 
-//            FROM products
-//            JOIN follow ON products.id != follow.productId
-//            WHERE follow.userId =1";
-//    
+        $query = $select->query()->fetchAll();  
     
-    return $query;
+        return $query;
     }
     
-    public function images($pid,$images)
+    public function images($pid,$images)  //to insert images in the images folder.
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $data = [
