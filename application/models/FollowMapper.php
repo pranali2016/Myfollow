@@ -16,6 +16,7 @@ class Application_Model_FollowMapper
         return $this;
     }
     
+    
     public function getDbTable()
     {
         if (null === $this->_dbTable) {
@@ -26,24 +27,19 @@ class Application_Model_FollowMapper
     
     
 
-    public function follow($pid,$uid,$status) //insert the record to the databaase
+    public function follow($pid,$uid,$status)       //insert the record to the follow table
     {
-        
         $data = ['productId'       => $pid,
           'userId'          => $uid,
           'state'          => $status,
           
           ];
-//        echo $pid." ".$uid." ".$status." <pre>";
-//       exit;
         $this->getDbTable()->insert($data);
-//        echo '<pre>';
-//        print_r($db);
-//        exit;
-        
       }
       
-      public function check($pid,$uid)      //check whether the product is followed or not
+      
+      
+      public function check($pid,$uid)   //display the product with id=$pid is followed by the user with id = $uid
       {
           $select = $this->getDbTable()->select()
                   ->where('productId=?',$pid)
@@ -55,7 +51,9 @@ class Application_Model_FollowMapper
               return $result;
           }
       }
-      public function checkfollow($uid)
+      
+      
+      public function checkfollow($uid)  //check whether the user with id=$uid following any product
       {
           $select = $this->getDbTable()->select()
                         ->where('userId=?',$uid);
@@ -66,20 +64,37 @@ class Application_Model_FollowMapper
           }
       }
       
-      public function displayfollow($uid)   //display all the products which are followed.
+      
+      public function displayfollow($uid)     //To display all the products which are followed.
       {
           $db = Zend_Db_Table::getDefaultAdapter();
           $select = $db->select()
             ->from(['p' => 'products'])
             ->join(array('f' => 'follow'), 'f.productId = p.id')
+            ->order('p.updated_at DESC')
             ->where('f.userId = ?', $uid);
           $result = $select->query()->fetchAll();
           return $result;
       }
       
-      public function unfollow($pid,$uid)       //delete the products from the follow table
+      
+      
+      public function unfollow($pid,$uid)     //remove the productid = $pid which are followed by userid = $uid
       {
           $this->getDbTable()->delete(array('productId= ?' => $pid, 'userId=?' => $uid));
+      }
+      
+      
+      
+      public function imagefollow($uid)   // display the images whose productid matched to the image table's productid
+      {
+          $db = Zend_Db_Table::getDefaultAdapter();
+          $select = $db->select()
+                    ->from(['i' => 'images'])
+                    ->join(['f' => 'follow'], 'f.productId = i.productId')
+                    ->where('f.userId =?',$uid);
+          $result = $select->query()->fetchAll();
+          return $result;
       }
 }
 

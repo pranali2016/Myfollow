@@ -4,9 +4,6 @@ class Application_Model_ProductownerMapper
 {
     protected $_dbTable;
 
-    //protected $_db = 'myfollow';
-
-
     public function setDbTable($dbTable)
     {
         if (is_string($dbTable)) {

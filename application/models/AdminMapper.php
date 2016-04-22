@@ -19,12 +19,12 @@ class Application_Model_AdminMapper
     public function getDbTable()
     {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Application_Model_DbTable_Admin');
+            $this->setDbTable('Application_Model_DbTable_Admin');   //gives admin table.
         }
         return $this->_dbTable;
     }
  
-    public function save(Application_Model_Admin $admin)
+    public function save(Application_Model_Admin $admin)    //insert data to the admin table
     {
         $data = array(
             'email'   => $admin->getEmail(),
