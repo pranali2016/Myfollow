@@ -1,9 +1,9 @@
 There is an application called MyFollow
 
-The site has 2 type of user.
+The site has 2 type of users.
 1. Product Owners/App Owners, They will login only on Web using MyFollow’s own
 registration and authentication system. They will use Web interface to post updates
-2. End Users , They will login only from Mobile App using either Facebook or Twitter login.
+2. End Users , They will login only from Mobile App using linkein login.
 They can browse the updates posted by Product owners.
 
 Flow of the project is given below :
