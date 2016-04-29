@@ -6,20 +6,64 @@
     <br><br>
     <div class="well col-lg-10">
         <blockquote> If you are an organization and wants to promote your products to the world you can get register with us. 
-        For the registration <a href="<?php echo $this->url(array(
-            'controller'  => 'admin'
-            ),NULL,TRUE); ?>" class="btn btn-danger btn-xs"> Click Here.</a>  We will provide you the registration link to the requested email id.
+         We will provide you the registration link to the requested email id.
     </blockquote>
     </div>
    </div>
-<div class="container">
-    <br><br><br>
-   <!-- <a href="<?php echo $this->url(array(
-        'controller'  => 'enduser'
-    ),NULL,TRUE);?>" class="btn btn-warning">Users Registration</a>-->
-    
+
+   <div class="container">
+       <div class="col-lg-3"><a href="process.php"><img src="images/sign-in-with-linkedin.png" /></a></div>
+       <div class="panel panel-primary col-lg-offset-7">
+          
+  <div class="panel-heading">
+    <h3 class="panel-title">Register your Organization</h3>
+  </div>
+           <div class="panel-body">
+    <?php if(isset($this->message)) :?>
+    <div class="">
+        
+    <?php if($this->message == 'error'):?>
+        <div class="alert alert-dismissible alert-danger"><?php echo 'Request is already submitted. We will get back to you soon.'; ?> </div>
+     <?php else: ?>
+        <div class="alert alert-dismissible alert-success"> <?= $this->message; ?></div>
+        <?php endif;?>
+    </div>    
+ <?php endif;?>
+<form class="form-horizontal" action="<?php echo $this->url(
+    array(
+        'controller' => 'index',
+        'action'     => 'save'
+    ),
+    null,
+        true); ?>" method="post" >
+  <fieldset>
+       <div class="form-group">
+            <label for="inputName" class="col-lg-4 control-label">Name</label>
+            <div class="col-lg-5">
+                <input type="text" class="form-control"  required="true" id="name" name="name" placeholder="Name">
+            </div>
+          </div>
+    <div class="form-group">
+            <label for="inputEmail" class="col-lg-4 control-label">Email</label>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" required="true" id="email" name="email" placeholder="Email">
+            </div>
+    </div>
+    <div class="form-group">
+            <label for="companyname" class="col-lg-4 control-label">Company Name</label>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" required="true" name="companyName" placeholder="Company Name">
+            </div>
+    </div>
+    <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-4">
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+    </div>
+    </div>
+  </fieldset>
+</form>
 </div>
-<br>
-<div class="container">
-    <div><a href="process.php"><img src="images/sign-in-with-linkedin.png" /></a></div>
+
 </div>

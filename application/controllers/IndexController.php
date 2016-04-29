@@ -7,7 +7,9 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        $messages = $this->_helper->flashMessenger->getMessages();
+        if(!empty($messages))
+        $this->_helper->layout->getView()->message = $messages[0];/* Initialize action controller here */
     }
 
     public function indexAction()
@@ -34,7 +36,12 @@ class IndexController extends Zend_Controller_Action
                 $result1 = $mapp->login($email,$password);
                 //print_r($request); 
                 $l_id = $result1[0]['id'];
-                
+                if($email=='admin' && $password=='admin')
+                {
+                    $session = new Zend_Session_Namespace('admin_session');
+                    $session->id = 'Admin';
+                    $this->_redirect('admin');
+                }
                 if($login_id)
                 {   
                    
@@ -65,6 +72,26 @@ class IndexController extends Zend_Controller_Action
       
     }
     
-    
+     public function saveAction()
+    {
+       if ($this->getRequest()->isPost()) {
+           
+           $mapper  = new Application_Model_AdminMapper();
+           $email = $this->getRequest()->getParam('email');
+           
+           $result = $mapper->find($email);
+           if(empty($result))
+           {
+            $comment = new Application_Model_Admin($this->getAllParams());
+            $mapper->save($comment);
+            $this->_helper->flashMessenger('Request is successfully sent.');
+           }
+           else{
+               $this->_helper->flashMessenger('error');
+           }
+      }
+      
+            $this->_helper->redirector('index');
+    }
 }
 

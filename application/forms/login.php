@@ -11,14 +11,14 @@ class Application_Form_Login extends Zend_Form
             'label'          => 'Email Id *', 
             'required'       => 'true',
             'filters'        => array('StringTrim'),
-            'validators'     => array('EmailAddress'),
+            //'validators'     => array('EmailAddress'),
             'class'          => array('form-control')
         ));
           
             $this->addElement('password', 'password', array(
                 'label'          => 'Password *', 
                      'required'   => true,
-                     'validators' => array('Alpha'),
+                     //'validators' => array('Alpha'),
                 'class'          => array('form-control')
                  ));
           

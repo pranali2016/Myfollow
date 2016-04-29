@@ -44,6 +44,7 @@ class Application_Model_ProductownerMapper
            'twitterHandler' =>$owner->getTwitterHandler(),
            'facebookPage'=> $owner->getFacebookPage(),
         );
+       
             $this->getDbTable()->insert($data);
   
     }
@@ -75,5 +76,17 @@ class Application_Model_ProductownerMapper
             return $result;
         }
     }
+    
+    public function fetch($email)        //get the details of product owner by the is given
+    {
+        $select = $this->getDbTable()->select()
+                        ->where('email=?',$email);
+        $result = $select->query()->fetchAll();
+        if(count($result) != 0)
+        {
+            return $result;
+        }
+    }
+    
 }
 

@@ -35,5 +35,74 @@ class Application_Model_AdminMapper
   
     }
     
+   public function display()        //get the details of product owner by the is given
+    {
+        $select = $this->getDbTable()->select();
+        $result = $select->query()->fetchAll();
+        
+        if(count($result) != 0)
+        {
+            return $result;
+        }
+    }
+    
+     public function fetch($id)        //get the details of product owner by the is given
+    {
+        $select = $this->getDbTable()->select()
+                    ->where('id = ?',$id);
+        $result = $select->query()->fetchAll();
+        
+        if(count($result) != 0)
+        {
+            return $result;
+        }
+    }
+    
+    public function update($id)        //get the details of product owner by the is given
+    {
+        $set = ['approve' => 1];
+        $where = ['id = ?' => $id];
+        $this->getDbTable()->update($set,$where);
+    }
+    
+    public function find($email)        //get the details of product owner by the is given
+    {
+        $select = $this->getDbTable()->select()
+                    ->where('email = ?',$email);
+        $result = $select->query()->fetchAll();
+        
+        if(count($result) != 0)
+        {
+            return $result;
+        }
+    }
+    public function token($email,$company) 
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+      
+        $data = [
+          'email'   => $email,
+          'company' => $company
+        ];
+        
+       $token = $db->insert('tokan', $data);
+        
+       return $token;
+    }
+    
+    public function fetchdetail($token)        //get the details of product owner by the is given
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        
+        $select = $db->select()
+            ->from('tokan')
+            ->where('tokan = ?', $token);
+          $result = $select->query()->fetchAll();
+         
+        if(count($result) != 0)
+        {
+            return $result;
+        }
+    }
 }
 

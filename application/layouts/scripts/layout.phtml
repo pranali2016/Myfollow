@@ -9,12 +9,13 @@
         <!-- session created for productowner user_session and enduser enduser_session -->
         <?php $this->session = new Zend_Session_Namespace('user_session');
           $this->session1 = new Zend_Session_Namespace('enduser_session');
+          $this->session2 = new Zend_Session_Namespace('admin_session');
           //echo $this->session->id;
           ?>
         <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-         <?php  if(!isset($this->session1->id) && !isset($this->session->id) && !isset($_SESSION["loggedin_user_id"])):?>   <!-- authentication purpose if no session is running. -->
+         <?php  if(!isset($this->session1->id) && !isset($this->session->id) && !isset($_SESSION["loggedin_user_id"]) && !isset($_SESSION["admin_session"])):?>   <!-- authentication purpose if no session is running. -->
                 <a class="navbar-brand" href="<?php echo $this->url(
               array(
                   'controller' => 'Index',
@@ -69,13 +70,17 @@
                             null,
                                 true); ?>">Dashboard</a>
                     <?php endif;?>
+                     
+                      <?php  if(isset($this->session2->id)): ?>                       <!-- if product owner session is running -->
+                            <a class="navbar-brand" href="">Welcome Admin</a>
+                    <?php endif;?>
         <?php endif; ?>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
     <ul class="nav navbar-nav navbar-right">
           
-        <?php  if(!isset($this->session->id) && !isset($this->session1->id) && !isset($_SESSION["loggedin_user_id"])): ?>  <!-- if no session is running login will display -->
+        <?php  if(!isset($this->session->id) && !isset($this->session1->id) && !isset($_SESSION["loggedin_user_id"]) && !isset($_SESSION["admin_session"])): ?>  <!-- if no session is running login will display -->
                 <li><a href="<?php echo $this->url(
                 array(
                     'controller' => 'Index',

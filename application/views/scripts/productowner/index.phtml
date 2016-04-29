@@ -1,130 +1,183 @@
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+  });
+  </script>
+<script type="text/javascript" >
+ 
+    function checkform(form)
+    {
+        if(form.password.value.length < 8)
+        {
+             alert("Error: Password length shoulb grater than 8!");
+            form.password.focus();
+            return false;
+        }
+        
+        re = /[0-9]/;
+        if(!re.test(form.password.value))
+        {
+            alert("Error: Password mustcontain atleast one number (0-9)!");
+            form.password.focus();
+            return false;
+        }
+        
+        re = /[a-z]/;
+        if(!re.test(form.password.value))
+        {
+            alert("Error: Password mustcontain atleast one lowercase letter (a-z)!");
+            form.password.focus();
+            return false;
+        }
+        
+         re = /[A-Z]/;
+        if(!re.test(form.password.value))
+        {
+            alert("Error: Password mustcontain atleast one uppercase letter (A-Z)!");
+            form.password.focus();
+            return false;
+        }
+        return true;
+    }
+    
+</script>
+<div class="container">
    <?php if(isset($this->message)) :?>
-    <div class="alert alert-dismissible alert-success">
-
-    <?php echo $this->message ;?>
-
+    <div class="">
+        
+    <?php if($this->message == 'error'):?>
+        <div class="alert alert-dismissible alert-danger"><?php echo 'This email is already regidtered. Go back to <a href="http://myfollow.local/"> myfollow.local/</a>'; ?> </div>
+     <?php else: ?>
+        <div class="alert alert-dismissible alert-success"> <?= $this->message."Go back to <a href='http://myfollow.local/'> myfollow.local/</a>"; ?></div>
+        <?php endif;?>
     </div>    
  <?php endif;?>
+    </div>
 <div class="container">
+    <br><br>
 <form class="form-horizontal" action="<?php echo $this->url(
     array(
         'controller' => 'productowner',
         'action'     => 'add'
     ),
     null,
-        true); ?>" method="post" >
+        true); ?>" method="post" onsubmit="return checkform(this);" >
   <fieldset>
     <legend>Product Owner Registration</legend>
+    <p class="pull-right"> * indicates required fields. </p>
     <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+      <label for="inputEmail" class="col-lg-2 control-label">Email * </label>
       <div class="col-lg-5">
-          <input type="text" class="form-control" required="true" id="email" name="email" placeholder="Email">
+          <input type="text" class="form-control" readonly="true" required="true"  name="email" value="<?= $this->email; ?>">
       </div>
     </div>
     <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Password</label>
+      <label for="inputEmail" class="col-lg-2 control-label">Password * </label>
       <div class="col-lg-3">
-          <input type="password" class="form-control" required="true"  id="email" name="password" placeholder="Password">
+          <input type="password" class="form-control" required="true"  name="password" placeholder="Password">
       </div>
-      
+      <div class="col-lg-5">
+         Passwords must contain at least Eight characters, including uppercase, lowercase letters and numbers.
+      </div>
     </div>
     <div class="form-group">
-      <label for="companyname" class="col-lg-2 control-label">Company Name</label>
+      <label for="companyname" class="col-lg-2 control-label">Company Name * </label>
       <div class="col-lg-5">
-          <input type="text" class="form-control" required="true" name="companyName" placeholder="Company Name">
+          <input type="text" class="form-control" readonly="true" name="companyName" value="<?= $this->company; ?>">
       </div>
     </div>
       <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">Description</label>
+      <label for="textArea" class="col-lg-2 control-label">Description  </label>
       <div class="col-lg-5">
         <textarea class="form-control" rows="3" name='description' id="textArea"></textarea>
         <span class="help-block">Describe your company.</span>
       </div>
     </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Date of Joining</label>
-      <div class="col-lg-2">
-          <input type="text" class="form-control" required="true" id="email" name="doj" placeholder="Date of joining">
-      </div>
-        <div class="col-lg-2">
-          Date format (YYYY-mm-dd)
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Founded in</label>
-      <div class="col-lg-2">
-          <input type="text" class="form-control" required="true" id="email" name="foundedIn" placeholder="Founded In">
-      </div>
-      <div class="col-lg-2">
-          Date format (YYYY-mm-dd)
-      </div>
-    </div>
-    
-       <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Street Address</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true"  name="street1" placeholder="Street">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Area</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true"  name="street2" placeholder="Area">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">City</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true"  name="city" placeholder="City">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">State</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true" name="state" placeholder="State">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Country</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true" name="country" placeholder="Country">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Pin Code</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true" name="pin" placeholder="Pin Code">
-      </div>
-    </div><div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Contact No</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true"  name="contactNo" placeholder="Contact No">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Website Url</label>
+   <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Website Url * </label>
       <div class="col-lg-5">
           <input type="text" class="form-control" required="true"  name="websiteUrl" placeholder="Website URL">
       </div>
     </div>
     <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Twitter Handler</label>
-      <div class="col-lg-5">
-          <input type="text" class="form-control" required="true"  name="twitterHandler" placeholder="@twitterHandler">
+      <label for="inputEmail" class="col-lg-2 control-label">Founded in</label>
+      <div class="col-lg-2">
+          <input type="text" class="form-control form_datetime" id="datepicker" name="foundedIn" placeholder="Founded In">
+      </div>
+      <div class="col-lg-2">
+          Date format (YYYY-mm-dd)
       </div>
     </div>
+    </div><br><br>
+<div class="container">
+    <legend>Additional Details</legend>
+       <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Street Address</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"   name="street1" placeholder="Street">
+      </div>
+       </div> <div class="col-lg-2"></div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">city</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"   name="city" placeholder="City">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Area</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"  name="street2" placeholder="Area">
+      </div>
+    </div><div class="col-lg-2"></div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">State</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"  name="state" placeholder="State">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label"> Pin Code</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"  name="pin" placeholder="Pin code">
+      </div>
+    </div><div class="col-lg-2"></div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Country</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"  name="country" placeholder="Country">
+      </div>
+    </div><div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Contact No</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"   name="contactNo" placeholder="Contact No">
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Twitter Handler</label>
+      <div class="col-lg-3">
+          <input type="text" class="form-control"   name="twitterHandler" placeholder="@twitterHandler">
+      </div>
+    </div>
+   
     <div class="form-group">
       <label for="inputEmail" class="col-lg-2 control-label">Facebook Page</label>
       <div class="col-lg-5">
-          <input type="text" class="form-control" required="true"  name="facebookPage" placeholder="Facebook Page URL">
+          <input type="text" class="form-control"   name="facebookPage" placeholder="Facebook Page URL">
       </div>
     </div>
+</div>
     
-    
+     <br><br>
+     <div class="container">  
     <div class="form-group">
       <div class="col-lg-5 col-lg-offset-2">
+          <button type="submit" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
         <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        
       </div>
     </div>
   </fieldset>
