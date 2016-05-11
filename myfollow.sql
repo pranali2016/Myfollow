@@ -236,10 +236,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `oauth_provider`, `oauth_uid`, `fname`, `lname`, `email`, `location`, `country`, `picture_url`, `profile_url`, `created`, `modified`) VALUES
-(1, 'linkedin', '4JU9g8QKd_', 'pranali', 'jadhav', 'jpranali51@yahoo.com', 'Vadodara Area, India', 'in', '', 'https://www.linkedin.com/in/pranali-jadhav-845b7791', '2016-04-19 05:34:51', '2016-04-23 08:29:44'),
-(2, 'linkedin', '7GtkANiGvD', 'pranali', 'jadhav', 'pranali@promactinfo.com', 'Vadodara Area, India', 'in', '', 'https://www.linkedin.com/in/pranali-jadhav-045b1611a', '2016-04-19 07:23:49', '2016-04-22 11:27:48');
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
