@@ -45,8 +45,8 @@ class AdminController extends Zend_Controller_Action
             $mapper->update($id);
             //echo $email." ".$name;exit;
             $config = ['auth' => 'login',
-                'username' => 'pranali@promactinfo.com',
-                'password' => 'WhaOZRpkTY1(cPJl',
+                'username' => '',
+                'password' => '',
                 //'SMTPAuth ' => false,
                 //'ssl' => 'tsl',
                 //'host' => 'localhost',
