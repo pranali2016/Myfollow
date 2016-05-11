@@ -61,3 +61,4 @@ class Application_Model_EnduserMapper
        }
     }
 }
+

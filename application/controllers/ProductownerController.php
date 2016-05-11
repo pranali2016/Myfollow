@@ -46,4 +46,3 @@ class ProductownerController extends Zend_Controller_Action
 
 }
             
-    

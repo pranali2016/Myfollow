@@ -223,4 +223,5 @@ class HomeController extends Zend_Controller_Action
             $this->_helper->redirector('linkedin');
         }
    
+
 }

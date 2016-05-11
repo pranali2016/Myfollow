@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 use Zend_Mail_Transport_Smtp;
@@ -78,3 +79,4 @@ class AdminController extends Zend_Controller_Action
     }
     
 }
+

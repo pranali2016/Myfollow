@@ -1,3 +1,4 @@
+
 <?php
 
 class Application_Model_ProductownerMapper
