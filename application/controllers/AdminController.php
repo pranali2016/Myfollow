@@ -36,8 +36,10 @@ class AdminController extends Zend_Controller_Action
             $company = $display[0]['companyName'];
             $map  = new Application_Model_TokanMapper();
             $token = $map->token($email, $company);
-            
-            $link = "RegLnk9894";//.$token;
+//            $r = base64_encode('pranalivj9@gmail.com');
+//            $d = base64_decode($r);
+//            echo $r." ".$d; exit;
+            $link = "RegLnk9894".$token;//.$token;
             $lis = md5($link).$token;
             $mapper->update($id);
             //echo $email." ".$name;exit;
